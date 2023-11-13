@@ -1,33 +1,23 @@
 package christmas.controller;
 
 
-import christmas.exception.InvalidInputException;
-import christmas.util.InputUtil;
+import christmas.domain.Date;
+import christmas.domain.Menu;
 import christmas.view.InputView;
 
-import static christmas.constant.MessageConstant.*;
-import static christmas.exception.ErrorMessage.INVALID_DATE;
-
 public class EventController {
+    Date date;
+    Menu menu;
+
     public EventController() {
+        date = new Date();
+        menu = new Menu();
     }
 
     public void start() {
-        getDate();
+        date.validateDate(InputView.readDate());
+        menu.validateMenu(InputView.readMenu());
     }
 
-    private int getDate() {
-        return InputUtil.retryOnException(() -> {
-            int date = InputView.readDate();
-            return dateValidator(date);
-        });
-    }
-
-    private int dateValidator(int date) {
-        if (!(date >= MINIMUM_OF_DATE_RANGE && date <= MAXIMUM_OF_DATE_RANGE)) {
-            throw new InvalidInputException(INVALID_DATE);
-        }
-        return date;
-    }
 
 }

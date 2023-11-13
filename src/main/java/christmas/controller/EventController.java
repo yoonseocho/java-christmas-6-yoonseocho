@@ -3,13 +3,11 @@ package christmas.controller;
 
 import christmas.domain.Date;
 import christmas.domain.Menu;
+import christmas.util.InputUtil;
+import christmas.view.InputView;
+import christmas.view.OutputView;
 
 import java.util.Map;
-
-import static christmas.view.InputView.readDate;
-import static christmas.view.InputView.readMenu;
-import static christmas.view.OutputView.printMenu;
-import static christmas.view.OutputView.printPreviewMessage;
 
 public class EventController {
     Date date;
@@ -23,10 +21,23 @@ public class EventController {
     }
 
     public void start() {
-        this.dateOfEvent = date.validateDate(readDate());
-        this.orderMenu = menu.validateMenu(readMenu());
-        printPreviewMessage(dateOfEvent);
-        printMenu(orderMenu);
+        OutputView.printStartMessage();
+        this.dateOfEvent = getDate();
+        this.orderMenu = getMenu();
+        OutputView.printPreviewMessage(dateOfEvent);
+        OutputView.printMenu(orderMenu);
+    }
+    public int getDate(){
+        return InputUtil.retryOnException(()->{
+            int dateOfEvent = InputUtil.parseStringToInt(InputView.readDate());
+            return date.validateDate(dateOfEvent);
+        });
+    }
+    public Map<String, String> getMenu(){
+        return InputUtil.retryOnException(()->{
+            Map<String, String> orderMenu = InputUtil.parseKeyValuePairs(InputView.readMenu());
+            return menu.validateMenu(orderMenu);
+        });
     }
 
 

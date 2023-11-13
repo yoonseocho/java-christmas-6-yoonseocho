@@ -1,7 +1,6 @@
 package christmas.domain;
 
 import christmas.exception.InvalidInputException;
-import static christmas.util.InputUtil.retryOnException;
 
 import static christmas.constant.MessageConstant.MAXIMUM_OF_DATE_RANGE;
 import static christmas.constant.MessageConstant.MINIMUM_OF_DATE_RANGE;
@@ -11,9 +10,7 @@ public class Date {
     public Date() {
     }
     public int validateDate(int date) {
-        return retryOnException(() -> {
-            return validateRangeOfDate(date);
-        });
+        return validateRangeOfDate(date);
     }
 
     public int validateRangeOfDate(int date) {

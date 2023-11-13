@@ -2,7 +2,12 @@ package christmas.view;
 
 import java.util.Map;
 
+import static christmas.constant.MessageConstant.START_MESSAGE;
+
 public class OutputView {
+    public static void printStartMessage(){
+        System.out.println(START_MESSAGE);
+    }
     public static void printPreviewMessage(int date) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n%n", date);
     }

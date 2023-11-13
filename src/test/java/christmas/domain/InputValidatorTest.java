@@ -48,7 +48,7 @@ public class InputValidatorTest {
     @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하는 경우 예외처리")
     @Test
     void validateMenuExist() {
-        assertThatThrownBy(() -> menu.validateMenuExist(Map.of("골드키위샐러드", "1","티본스테이끼","2")))
+        assertThatThrownBy(() -> menu.validateMenuExist(Map.of("골드키위샐러드", "1","티본스테이끼","2","시저샐러드","1")))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }

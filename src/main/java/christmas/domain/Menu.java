@@ -14,19 +14,19 @@ public class Menu {
     }
 
     public Map<String, String> validateMenu(Map<String, String> menu) {
-        return retryOnException(() -> {
-            validateMenuExist(menu);
-            validateNumberOfEachMenu(menu);
-            validateOnlyDrink(menu);
-            validateTotalNumberOfMenu(menu);
+        validateMenuExist(menu);
+        validateNumberOfEachMenu(menu);
+        validateOnlyDrink(menu);
+        validateTotalNumberOfMenu(menu);
 
-            return menu;
-        });
+        return menu;
     }
 
     public void validateMenuExist(Map<String, String> menu) {
-        if (!(menu.containsKey(MUSHROOM_SOUP) || menu.containsKey(TAPAS) || menu.containsKey(SALAD) || menu.containsKey(STEAK) || menu.containsKey(RIB) || menu.containsKey(SEAFOOD_PASTA) || menu.containsKey(X_MAS_PASTA) || menu.containsKey(CAKE) || menu.containsKey(ICE_CREAM) || menu.containsKey(COKE) || menu.containsKey(WINE) || menu.containsKey(CHAMPAGNE))) {
-            throw new InvalidInputException(INVALID_MENU);
+        for (String menuName : menu.keySet()) {
+            if (!(menuName.equals(MUSHROOM_SOUP) || menuName.equals(TAPAS) || menuName.equals(SALAD) || menuName.equals(STEAK) || menuName.equals(RIB) || menuName.equals(SEAFOOD_PASTA) || menuName.equals(X_MAS_PASTA) || menuName.equals(CAKE) || menuName.equals(ICE_CREAM) || menuName.equals(COKE) || menuName.equals(WINE) || menuName.equals(CHAMPAGNE))) {
+                throw new InvalidInputException(INVALID_MENU);
+            }
         }
     }
 

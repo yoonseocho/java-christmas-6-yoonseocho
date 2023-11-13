@@ -23,20 +23,14 @@ public class InputUtil {
         }
     }
 
-    public static <T> T retryOnException(Supplier<T> supplier, boolean lineBreak) {
+    public static <T> T retryOnException(Supplier<T> supplier) {
         while(true){
             try {
                 return supplier.get();
             } catch (AppException e) {
                 System.out.println(e.getMessage());
-                if (lineBreak) {
-                    System.out.println();
-                }
             }
         }
-    }
-    public static <T> T retryOnException(Supplier<T> supplier) {
-        return retryOnException(supplier, false);
     }
 
     public static Map<String, String> parseKeyValuePairs(String input) {

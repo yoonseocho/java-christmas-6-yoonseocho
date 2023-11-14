@@ -6,8 +6,8 @@ import static christmas.constant.MessageConstant.MAXIMUM_OF_DATE_RANGE;
 import static christmas.constant.MessageConstant.MINIMUM_OF_DATE_RANGE;
 import static christmas.exception.ErrorMessage.INVALID_DATE;
 
-public class Date {
-    public Date() {
+public class DateValidator {
+    public DateValidator() {
     }
     public int validateDate(int date) {
         return validateRangeOfDate(date);

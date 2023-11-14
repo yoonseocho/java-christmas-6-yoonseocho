@@ -1,8 +1,8 @@
 package christmas.controller;
 
 
-import christmas.domain.Date;
-import christmas.domain.Menu;
+import christmas.domain.DateValidator;
+import christmas.domain.MenuValidator;
 import christmas.util.InputUtil;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -10,14 +10,14 @@ import christmas.view.OutputView;
 import java.util.Map;
 
 public class EventController {
-    Date date;
-    Menu menu;
+    DateValidator dateValidator;
+    MenuValidator menuValidator;
     int dateOfEvent;
     Map<String, String> orderMenu;
 
     public EventController() {
-        date = new Date();
-        menu = new Menu();
+        dateValidator = new DateValidator();
+        menuValidator = new MenuValidator();
     }
 
     public void start() {
@@ -26,19 +26,18 @@ public class EventController {
         this.orderMenu = getMenu();
         OutputView.printPreviewMessage(dateOfEvent);
         OutputView.printMenu(orderMenu);
+        //OutputView.printTotalPriceBeforeDiscount();
     }
     public int getDate(){
         return InputUtil.retryOnException(()->{
             int dateOfEvent = InputUtil.parseStringToInt(InputView.readDate());
-            return date.validateDate(dateOfEvent);
+            return dateValidator.validateDate(dateOfEvent);
         });
     }
     public Map<String, String> getMenu(){
         return InputUtil.retryOnException(()->{
             Map<String, String> orderMenu = InputUtil.parseKeyValuePairs(InputView.readMenu());
-            return menu.validateMenu(orderMenu);
+            return menuValidator.validateMenu(orderMenu);
         });
     }
-
-
 }

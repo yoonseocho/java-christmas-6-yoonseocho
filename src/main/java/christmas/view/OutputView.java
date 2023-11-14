@@ -19,4 +19,8 @@ public class OutputView {
             System.out.println(elem.getKey() + " " + elem.getValue() + "개");
         }
     }
+    public static void printTotalPriceBeforeDiscount(int sum){
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.printf("%d%n",sum);
+    }
 }

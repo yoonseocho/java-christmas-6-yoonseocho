@@ -37,9 +37,6 @@ public class InputUtil {
         if (input == null) {
             throw new InvalidInputException(INVALID_MENU);
         }
-        if (!(input.contains(","))) {
-            throw new InvalidInputException(INVALID_MENU);
-        }
         String[] pairs = input.split(",");
 
         Map<String, String> result = new HashMap<>();

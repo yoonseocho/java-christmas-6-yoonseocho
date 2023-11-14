@@ -1,12 +1,12 @@
 package christmas.domain;
 
 import christmas.exception.InvalidInputException;
+import christmas.util.ParseUtil;
 
 import java.util.Map;
 
 import static christmas.constant.MessageConstant.*;
 import static christmas.exception.ErrorMessage.*;
-import static christmas.util.ParseUtil.parseStringToInt;
 
 public class MenuValidator {
     public MenuValidator() {
@@ -39,7 +39,7 @@ public class MenuValidator {
 
     public void validateNumberOfEachMenu(Map<String, String> orderMenu) {
         for (String number : orderMenu.values()) {
-            if (parseStringToInt(number) < LEAST_MENU_NUMBER) {
+            if (ParseUtil.parseStringToInt(number) < LEAST_MENU_NUMBER) {
                 throw new InvalidInputException(INVALID_MENU);
             }
         }
@@ -64,7 +64,7 @@ public class MenuValidator {
     public void validateTotalNumberOfMenu(Map<String, String> orderMenu) {
         int count = 0;
         for (String value : orderMenu.values()) {
-            count += parseStringToInt(value);
+            count += ParseUtil.parseStringToInt(value);
         }
         if (count > 20) {
             throw new InvalidInputException(INVALID_TOTAL_NUMBER_OF_MENU);

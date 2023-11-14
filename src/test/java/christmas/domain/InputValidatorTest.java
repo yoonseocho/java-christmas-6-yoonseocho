@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.exception.InvalidInputException;
+import christmas.util.ParseUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

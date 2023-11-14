@@ -20,9 +20,13 @@ public class MessageConstant {
     public static final int MINIMUM_AMOUNT_OF_EVENT = 10000;
     public static final int DISCOUNT_AMOUNT_OF_FREE_EVENT = -25000;
     public static final int PRICE_OF_CHAMPAGNE = 25000;
-
-
-
+    public static final int MINIMUM_AMOUNT_FOR_STAR_BADGE = 5000;
+    public static final int MINIMUM_AMOUNT_FOR_TREE_BADGE = 10000;
+    public static final int MINIMUM_AMOUNT_FOR_SANTA_BADGE = 20000;
+    public static final String STAR_BADGE = "별";
+    public static final String TREE_BADGE = "트리";
+    public static final String SANTA_BADGE = "산타";
+    public static final String NONE = "없음";
 
     private MessageConstant() {
 

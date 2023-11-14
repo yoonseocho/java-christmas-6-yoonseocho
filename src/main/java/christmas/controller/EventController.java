@@ -16,6 +16,7 @@ public class EventController {
     TotalPriceBeforeEvent totalPriceBeforeEvent;
     DiscountEvent discountEvent;
     TotalPriceAfterEvent totalPriceAfterEvent;
+    BadgeOfDecember badgeOfDecember;
     int dateOfEvent;
     Map<String, String> orderMenu;
     int totalPrice;
@@ -42,6 +43,8 @@ public class EventController {
         OutputView.printTotalDiscountAmount(totalDiscountAmount);
         totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice,totalDiscountAmount,orderMenu);
         OutputView.printTotalPriceAfterEvent(totalPriceAfterEvent.calculateTotalPriceAfterEvent());
+        badgeOfDecember = new BadgeOfDecember(totalDiscountAmount);
+        OutputView.printBadgeOfDecember(badgeOfDecember.getBadgeByTotalDiscountAmount());
     }
 
     public int getDateOfEvent() {

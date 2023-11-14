@@ -68,5 +68,10 @@ public class OutputView {
     public static void printTotalPriceAfterEvent(int totalPriceAfterEvent){
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(ParseUtil.parsePrice(totalPriceAfterEvent)+"원");
+        ParseUtil.newLine();
+    }
+    public static void printBadgeOfDecember(String badge){
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badge);
     }
 }

@@ -3,6 +3,7 @@ package christmas.util;
 import christmas.exception.AppException;
 import christmas.exception.InvalidInputException;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -53,5 +54,12 @@ public class InputUtil {
             }
         }
         return result;
+    }
+    public static String parsePrice(int price){
+        if(price/1000!=0){
+            DecimalFormat df = new DecimalFormat("###,###");
+            return df.format(price);
+        }
+        return Integer.toString(price);
     }
 }

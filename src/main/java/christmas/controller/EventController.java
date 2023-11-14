@@ -3,6 +3,7 @@ package christmas.controller;
 
 import christmas.domain.DateValidator;
 import christmas.domain.MenuValidator;
+import christmas.domain.TotalPriceBeforeDiscount;
 import christmas.util.InputUtil;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -12,12 +13,14 @@ import java.util.Map;
 public class EventController {
     DateValidator dateValidator;
     MenuValidator menuValidator;
+    TotalPriceBeforeDiscount totalPriceBeforeDiscount;
     int dateOfEvent;
     Map<String, String> orderMenu;
 
     public EventController() {
         dateValidator = new DateValidator();
         menuValidator = new MenuValidator();
+        totalPriceBeforeDiscount = new TotalPriceBeforeDiscount();
     }
 
     public void start() {
@@ -26,7 +29,7 @@ public class EventController {
         this.orderMenu = getMenu();
         OutputView.printPreviewMessage(dateOfEvent);
         OutputView.printMenu(orderMenu);
-        //OutputView.printTotalPriceBeforeDiscount();
+        OutputView.printTotalPriceBeforeDiscount(totalPriceBeforeDiscount.calculatePrice(orderMenu));
     }
     public int getDate(){
         return InputUtil.retryOnException(()->{

@@ -1,5 +1,7 @@
 package christmas.view;
 
+import christmas.util.InputUtil;
+
 import java.util.Map;
 
 import static christmas.constant.MessageConstant.START_MESSAGE;
@@ -18,9 +20,10 @@ public class OutputView {
         for (Map.Entry<String, String> elem : menu.entrySet()) {
             System.out.println(elem.getKey() + " " + elem.getValue() + "개");
         }
+        System.out.println();
     }
     public static void printTotalPriceBeforeDiscount(int sum){
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%d%n",sum);
+        System.out.println(InputUtil.parsePrice(sum)+"원");
     }
 }

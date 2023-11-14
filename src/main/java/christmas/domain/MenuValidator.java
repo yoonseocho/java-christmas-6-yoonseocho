@@ -27,7 +27,7 @@ public class MenuValidator {
         orderMenu.keySet().forEach(each -> {
             boolean isExist = false;
             for (Menu value : menu) {
-                if (each.equals(value.getOrderMenu())) {
+                if (each.equals(value.getName())) {
                     isExist = true;
                     break;
                 }
@@ -51,7 +51,7 @@ public class MenuValidator {
         boolean isOnlyDrink;
         isOnlyDrink = orderMenu.keySet().stream().allMatch(each -> {
             for (int i = 0; i < menu.length - DRINKS; i++) {
-                if (each.equals(menu[i].getOrderMenu())) {
+                if (each.equals(menu[i].getName())) {
                     return false;
                 }
             }

@@ -1,5 +1,11 @@
 package christmas.domain;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public enum Menu {
     MUSHROOM_SOUP("양송이수프",6000),
     TAPAS("타파스",5500),
@@ -12,17 +18,24 @@ public enum Menu {
     ICE_CREAM("아이스크림",5000),
     COKE("제로콜라",3000),
     WINE("레드와인",60000),
-    CHAMPAGNE("샴페인",25000);
-    private final String orderMenu;
+    CHAMPAGNE("샴페인",25000),
+    NONE("",0);
+    private final String name;
     private final int price;
-    Menu(String orderMenu, int price){
-        this.orderMenu = orderMenu;
+    Menu(String name, int price){
+        this.name = name;
         this.price = price;
     }
-    public String getOrderMenu(){
-        return orderMenu;
+    public String getName(){
+        return name;
     }
     public int getPrice(){
         return price;
+    }
+    public static Menu of(String name){
+        return Arrays.stream(values())
+                .filter(i -> i.name.equals(name))
+                .findAny()
+                .orElse(NONE);
     }
 }

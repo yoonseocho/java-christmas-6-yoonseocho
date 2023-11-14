@@ -21,7 +21,7 @@ public class ParseUtil {
             }
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException(INVALID_INPUT);
+            throw new InvalidInputException(INVALID_MENU);
         }
     }
 

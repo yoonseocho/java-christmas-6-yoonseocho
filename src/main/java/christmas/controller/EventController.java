@@ -2,6 +2,7 @@ package christmas.controller;
 
 
 import christmas.domain.*;
+import christmas.exception.InvalidInputException;
 import christmas.util.ParseUtil;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -9,6 +10,8 @@ import christmas.view.OutputView;
 import java.util.Map;
 
 import static christmas.constant.MessageConstant.*;
+import static christmas.exception.ErrorMessage.INVALID_DATE;
+import static christmas.exception.ErrorMessage.INVALID_MENU;
 
 public class EventController {
     DateValidator dateValidator;
@@ -50,7 +53,12 @@ public class EventController {
 
     public int getDateOfEvent() {
         return ParseUtil.retryOnException(() -> {
-            int dateOfEvent = ParseUtil.parseStringToInt(InputView.readDate());
+            int dateOfEvent;
+            try{
+                dateOfEvent = Integer.parseInt(InputView.readDate());
+            }catch (NumberFormatException e) {
+                throw new InvalidInputException(INVALID_DATE);
+            }
             return dateValidator.validateDate(dateOfEvent);
         });
     }

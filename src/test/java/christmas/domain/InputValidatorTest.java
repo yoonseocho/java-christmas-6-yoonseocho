@@ -83,7 +83,7 @@ public class InputValidatorTest {
     void validateOnlyDrink() {
         assertThatThrownBy(() -> menuValidator.validateOnlyDrink(Map.of("제로콜라", "1", "샴페인", "1")))
                 .isInstanceOf(InvalidInputException.class)
-                .hasMessageContaining("[ERROR] 음료만 주문 시, 주문할 수 없습니다.");
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 
     @DisplayName("메뉴를 한 번에 20개 초과로 시키면 예외처리")
@@ -91,6 +91,6 @@ public class InputValidatorTest {
     void validateTotalNumberOfMenu() {
         assertThatThrownBy(() -> menuValidator.validateTotalNumberOfMenu(Map.of("시저샐러드", "1", "티본스테이크", "7", "크리스마스파스타", "6", "제로콜라", "5", "아이스크림", "5")))
                 .isInstanceOf(InvalidInputException.class)
-                .hasMessageContaining("[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.");
+                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
 }

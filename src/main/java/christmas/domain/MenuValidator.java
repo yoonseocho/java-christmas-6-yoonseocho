@@ -57,7 +57,7 @@ public class MenuValidator {
             return true;
         });
         if (isOnlyDrink) {
-            throw new InvalidInputException(INVALID_ONLY_DRINK);
+            throw new InvalidInputException(INVALID_MENU);
         }
     }
 
@@ -67,7 +67,7 @@ public class MenuValidator {
             count += ParseUtil.parseStringToInt(value);
         }
         if (count > 20) {
-            throw new InvalidInputException(INVALID_TOTAL_NUMBER_OF_MENU);
+            throw new InvalidInputException(INVALID_MENU);
         }
     }
 }

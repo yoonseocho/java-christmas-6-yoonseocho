@@ -16,6 +16,9 @@ public class ParseUtil {
 
     public static int parseStringToInt(String input) {
         try {
+            if (input == null) {
+                return 0;
+            }
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new InvalidInputException(INVALID_INPUT);
@@ -23,7 +26,7 @@ public class ParseUtil {
     }
 
     public static <T> T retryOnException(Supplier<T> supplier) {
-        while(true){
+        while (true) {
             try {
                 return supplier.get();
             } catch (AppException e) {
@@ -53,14 +56,16 @@ public class ParseUtil {
         }
         return result;
     }
-    public static String parsePrice(int price){
-        if(price/1000!=0){
+
+    public static String parsePrice(int price) {
+        if (price / 1000 != 0) {
             DecimalFormat df = new DecimalFormat("###,###");
             return df.format(price);
         }
         return Integer.toString(price);
     }
-    public static void newLine(){
+
+    public static void newLine() {
         System.out.println();
     }
 }

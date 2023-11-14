@@ -14,9 +14,9 @@ public class MessageConstant {
     public static final int INCREASE_BY_100_WON = 100;
     public static final int YEAR_OF_2023 = 2023;
     public static final int ZERO = 0;
-    public static final int SUNDAY = 1;
-    public static final int THURSDAY = 5;
     public static final int WEEK_DEFAULT_DISCOUNT = 2023;
+    public static final int WEEKEND_DEFAULT_DISCOUNT = 2023;
+
 
 
     private MessageConstant() {

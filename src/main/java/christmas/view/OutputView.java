@@ -40,4 +40,11 @@ public class OutputView {
         }
         ParseUtil.newLine();
     }
+    public static void printDiscountMessage(){
+        System.out.println("<혜택 내역>");
+        System.out.println("크리스마스 디데이 할인: ");
+        System.out.println("평일 할인: ");
+        System.out.println("특별 할인: ");
+        System.out.println("증정 이벤트: ");
+    }
 }

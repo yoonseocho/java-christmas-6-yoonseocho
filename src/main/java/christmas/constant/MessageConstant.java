@@ -9,6 +9,7 @@ public class MessageConstant {
     public static final int LEAST_MENU_NUMBER = 1;
     public static final int DRINKS = 3;
     public static final int MINIMUM_AMOUNT_OF_FREE_EVENT = 120000;
+    public static final int DATE_Of_X_MAS= 25;
 
 
     private MessageConstant() {

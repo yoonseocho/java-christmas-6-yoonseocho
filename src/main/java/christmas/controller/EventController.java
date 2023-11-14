@@ -1,10 +1,7 @@
 package christmas.controller;
 
 
-import christmas.domain.DateValidator;
-import christmas.domain.DiscountEvent;
-import christmas.domain.MenuValidator;
-import christmas.domain.TotalPriceBeforeEvent;
+import christmas.domain.*;
 import christmas.util.ParseUtil;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -18,6 +15,7 @@ public class EventController {
     MenuValidator menuValidator;
     TotalPriceBeforeEvent totalPriceBeforeEvent;
     DiscountEvent discountEvent;
+    TotalPriceAfterEvent totalPriceAfterEvent;
     int dateOfEvent;
     Map<String, String> orderMenu;
     int totalPrice;
@@ -42,6 +40,8 @@ public class EventController {
         printMenuOfFree();
         printDiscountEvent();
         OutputView.printTotalDiscountAmount(totalDiscountAmount);
+        totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice,totalDiscountAmount,orderMenu);
+        OutputView.printTotalPriceAfterEvent(totalPriceAfterEvent.calculateTotalPriceAfterEvent());
     }
 
     public int getDateOfEvent() {
@@ -61,12 +61,13 @@ public class EventController {
     public int getTotalPrice() {
         return totalPriceBeforeEvent.calculatePrice(orderMenu);
     }
-    public void printMenuOfFree(){
+
+    public void printMenuOfFree() {
         OutputView.printFreebieMessage();
-        if(isFree){
+        if (isFree) {
             OutputView.printMenuOfFree();
         }
-        if(!isFree){
+        if (!isFree) {
             OutputView.printNothing();
         }
     }
@@ -76,27 +77,27 @@ public class EventController {
         discountEvent = new DiscountEvent(dateOfEvent, orderMenu);
         if (totalPrice >= MINIMUM_AMOUNT_OF_EVENT) {
             if (discountEvent.hasDiscountOfChristmas()) {
-                totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
+                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
                 OutputView.printDiscountOfChristmas(discountEvent.calculateDiscountAmountByChristmasEvent());
             }
             if (discountEvent.hasDiscountOfWeek()) {
-                totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
+                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
                 OutputView.printDiscountOfWeek(discountEvent.calculateDiscountAmountByWeekEvent());
             }
             if (discountEvent.hasDiscountOfWeekend()) {
-                totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
+                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
                 OutputView.printDiscountOfWeekend(discountEvent.calculateDiscountAmountByWeekendEvent());
             }
             if (discountEvent.hasDiscountOfSpecialDay()) {
-                totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
+                this.totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
                 OutputView.printDiscountOfSpecialDay(discountEvent.calculateDiscountAmountBySpecialStarEvent());
             }
             if (isFree) {
-                totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;
+                this.totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;
                 OutputView.printDiscountByFreeEvent();
             }
         }
-        if(totalPrice<MINIMUM_AMOUNT_OF_EVENT){
+        if (totalPrice < MINIMUM_AMOUNT_OF_EVENT) {
             OutputView.printNothing();
         }
     }

@@ -19,6 +19,7 @@ public class MessageConstant {
     public static final int SPECIAL_DEFAULT_DISCOUNT = 1000;
     public static final int MINIMUM_AMOUNT_OF_EVENT = 10000;
     public static final int DISCOUNT_AMOUNT_OF_FREE_EVENT = -25000;
+    public static final int PRICE_OF_CHAMPAGNE = 25000;
 
 
 

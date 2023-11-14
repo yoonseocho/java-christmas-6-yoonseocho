@@ -11,7 +11,7 @@ import christmas.view.OutputView;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_EVENT;
+import static christmas.constant.MessageConstant.*;
 
 public class EventController {
     DateValidator dateValidator;
@@ -22,6 +22,7 @@ public class EventController {
     Map<String, String> orderMenu;
     int totalPrice;
     boolean isFree;
+    int totalDiscountAmount = ZERO;
 
     public EventController() {
         dateValidator = new DateValidator();
@@ -40,6 +41,7 @@ public class EventController {
         this.isFree = totalPriceBeforeEvent.isTargetOfFreeEvent(totalPrice);
         printMenuOfFree();
         printDiscountEvent();
+        OutputView.printTotalDiscountAmount(totalDiscountAmount);
     }
 
     public int getDateOfEvent() {
@@ -74,24 +76,29 @@ public class EventController {
         discountEvent = new DiscountEvent(dateOfEvent, orderMenu);
         if (totalPrice >= MINIMUM_AMOUNT_OF_EVENT) {
             if (discountEvent.hasDiscountOfChristmas()) {
+                totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
                 OutputView.printDiscountOfChristmas(discountEvent.calculateDiscountAmountByChristmasEvent());
             }
             if (discountEvent.hasDiscountOfWeek()) {
+                totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
                 OutputView.printDiscountOfWeek(discountEvent.calculateDiscountAmountByWeekEvent());
             }
             if (discountEvent.hasDiscountOfWeekend()) {
+                totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
                 OutputView.printDiscountOfWeekend(discountEvent.calculateDiscountAmountByWeekendEvent());
             }
             if (discountEvent.hasDiscountOfSpecialDay()) {
+                totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
                 OutputView.printDiscountOfSpecialDay(discountEvent.calculateDiscountAmountBySpecialStarEvent());
             }
             if (isFree) {
+                totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;
                 OutputView.printDiscountByFreeEvent();
             }
         }
         if(totalPrice<MINIMUM_AMOUNT_OF_EVENT){
             OutputView.printNothing();
         }
-
     }
+
 }

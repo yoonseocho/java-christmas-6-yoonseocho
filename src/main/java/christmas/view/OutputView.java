@@ -60,4 +60,9 @@ public class OutputView {
         System.out.println("증정 이벤트: -25,000원");
         ParseUtil.newLine();
     }
+    public static void printTotalDiscountAmount(int totalDiscountAmount){
+        System.out.println("<총혜택 금액>");
+        System.out.println(ParseUtil.parsePrice(totalDiscountAmount)+"원");
+        ParseUtil.newLine();
+    }
 }

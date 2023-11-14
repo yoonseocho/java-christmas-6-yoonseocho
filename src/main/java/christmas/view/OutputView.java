@@ -29,22 +29,35 @@ public class OutputView {
         System.out.println(ParseUtil.parsePrice(sum) + "원");
         ParseUtil.newLine();
     }
-
-    public static void printMenuOfFree(boolean isTarget) {
+    public static void printFreebieMessage(){
         System.out.println("<증정 메뉴>");
-        if (isTarget) {
-            System.out.println("샴페인 1개");
-        }
-        if (!isTarget) {
-            System.out.println("없음");
-        }
+    }
+
+    public static void printMenuOfFree() {
+        System.out.println("샴페인 1개");
+        ParseUtil.newLine();
+    }
+    public static void printNothing(){
+        System.out.println("없음");
         ParseUtil.newLine();
     }
     public static void printDiscountMessage(){
         System.out.println("<혜택 내역>");
-        System.out.println("크리스마스 디데이 할인: ");
-        System.out.println("평일 할인: ");
-        System.out.println("특별 할인: ");
-        System.out.println("증정 이벤트: ");
+    }
+    public static void printDiscountOfChristmas(int discount){
+        System.out.println("크리스마스 디데이 할인: "+ParseUtil.parsePrice(discount)+"원");
+    }
+    public static void printDiscountOfWeek(int discount){
+        System.out.println("평일 할인: "+ParseUtil.parsePrice(discount)+"원");
+    }
+    public static void printDiscountOfWeekend(int discount){
+        System.out.println("주말 할인: "+ParseUtil.parsePrice(discount)+"원");
+    }
+    public static void printDiscountOfSpecialDay(int discount){
+        System.out.println("특별 할인: "+ParseUtil.parsePrice(discount)+"원");
+    }
+    public static void printDiscountByFreeEvent(){
+        System.out.println("증정 이벤트: -25,000원");
+        ParseUtil.newLine();
     }
 }

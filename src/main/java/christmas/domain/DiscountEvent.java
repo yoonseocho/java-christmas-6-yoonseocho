@@ -12,22 +12,36 @@ import static christmas.constant.MessageConstant.*;
 public class DiscountEvent {
     Calendar calendar;
     private int dateOfEvent;
+    private Map<String,String> orderMenu;
 
-    public DiscountEvent(int dateOfEvent) {
+    public DiscountEvent(int dateOfEvent, Map<String,String> orderMenu) {
         calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_2023, Calendar.DECEMBER, dateOfEvent);
         this.dateOfEvent = dateOfEvent;
+        this.orderMenu = orderMenu;
+    }
+    public boolean hasDiscountOfChristmas(){
+        return calculateDiscountAmountByChristmasEvent() != 0;
+    }
+    public boolean hasDiscountOfWeek(){
+        return calculateDiscountAmountByWeekEvent() != 0;
+    }
+    public boolean hasDiscountOfWeekend(){
+        return calculateDiscountAmountByWeekendEvent() != 0;
+    }
+    public boolean hasDiscountOfSpecialDay(){
+        return calculateDiscountAmountBySpecialStarEvent() != 0;
     }
 
     public int calculateDiscountAmountByChristmasEvent() {
-        int discount = XMAS_DEFAULT_DISCOUNT;
+        int discount = ZERO;
         if (dateOfEvent <= DATE_OF_XMAS) {
-            discount += INCREASE_BY_100_WON * (dateOfEvent - 1);
+            discount += INCREASE_BY_100_WON * (dateOfEvent - 1) + XMAS_DEFAULT_DISCOUNT;
         }
         return -discount;
     }
 
-    public int calculateDiscountAmountByWeekEvent(Map<String, String> orderMenu) {
+    public int calculateDiscountAmountByWeekEvent() {
         int countOfDessert = ZERO;
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) >= Calendar.SUNDAY && calendar.get(Calendar.DAY_OF_WEEK) <= Calendar.THURSDAY) {
@@ -40,7 +54,7 @@ public class DiscountEvent {
         return -discount;
     }
 
-    public int calculateDiscountAmountByWeekendEvent(Map<String, String> orderMenu) {
+    public int calculateDiscountAmountByWeekendEvent() {
         int countOfMain = ZERO;
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
@@ -62,4 +76,5 @@ public class DiscountEvent {
         }
         return -discount;
     }
+
 }

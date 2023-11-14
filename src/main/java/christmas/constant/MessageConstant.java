@@ -9,7 +9,14 @@ public class MessageConstant {
     public static final int LEAST_MENU_NUMBER = 1;
     public static final int DRINKS = 3;
     public static final int MINIMUM_AMOUNT_OF_FREE_EVENT = 120000;
-    public static final int DATE_Of_X_MAS= 25;
+    public static final int DATE_OF_XMAS= 25;
+    public static final int XMAS_DEFAULT_DISCOUNT = 1000;
+    public static final int INCREASE_BY_100_WON = 100;
+    public static final int YEAR_OF_2023 = 2023;
+    public static final int ZERO = 0;
+    public static final int SUNDAY = 1;
+    public static final int THURSDAY = 5;
+    public static final int WEEK_DEFAULT_DISCOUNT = 2023;
 
 
     private MessageConstant() {

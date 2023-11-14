@@ -3,11 +3,10 @@ package christmas.domain;
 import christmas.exception.InvalidInputException;
 
 import java.util.Map;
-import java.util.stream.IntStream;
 
 import static christmas.constant.MessageConstant.*;
 import static christmas.exception.ErrorMessage.*;
-import static christmas.util.InputUtil.parseStringToInt;
+import static christmas.util.ParseUtil.parseStringToInt;
 
 public class MenuValidator {
     public MenuValidator() {

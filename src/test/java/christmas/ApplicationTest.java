@@ -1,14 +1,10 @@
 package christmas;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
-import static christmas.util.InputUtil.parseKeyValuePairs;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
-import christmas.util.InputUtil;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();

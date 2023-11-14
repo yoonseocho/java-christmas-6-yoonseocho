@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Map;
 
-import static christmas.util.InputUtil.parseKeyValuePairs;
+import static christmas.util.ParseUtil.parseKeyValuePairs;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 public class InputValidatorTest {

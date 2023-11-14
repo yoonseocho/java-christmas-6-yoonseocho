@@ -6,14 +6,12 @@ import christmas.exception.InvalidInputException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static christmas.exception.ErrorMessage.*;
 
-public class InputUtil {
-    private InputUtil() {
+public class ParseUtil {
+    private ParseUtil() {
     }
 
     public static int parseStringToInt(String input) {
@@ -61,5 +59,8 @@ public class InputUtil {
             return df.format(price);
         }
         return Integer.toString(price);
+    }
+    public static void newLine(){
+        System.out.println();
     }
 }

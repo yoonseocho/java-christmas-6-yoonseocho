@@ -16,6 +16,8 @@ public class MessageConstant {
     public static final int ZERO = 0;
     public static final int WEEK_DEFAULT_DISCOUNT = 2023;
     public static final int WEEKEND_DEFAULT_DISCOUNT = 2023;
+    public static final int SPECIAL_DEFAULT_DISCOUNT = 1000;
+
 
 
 

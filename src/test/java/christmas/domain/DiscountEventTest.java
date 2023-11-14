@@ -31,4 +31,11 @@ public class DiscountEventTest {
         int discount = discountEvent.calculateDiscountAmountByWeekendEvent(Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1"));
         assertThat(discount).isEqualTo(-8092);
     }
+    @DisplayName("특별 할인금액 반환하기")
+    @Test
+    void calculateDiscountAmountBySpecialStarEvent(){
+        discountEvent = new DiscountEvent(31);
+        int discount = discountEvent.calculateDiscountAmountBySpecialStarEvent();
+        assertThat(discount).isEqualTo(-1000);
+    }
 }

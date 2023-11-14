@@ -2,7 +2,9 @@ package christmas.domain;
 
 import christmas.util.ParseUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import static christmas.constant.MessageConstant.*;
@@ -49,6 +51,14 @@ public class DiscountEvent {
                 countOfMain += ParseUtil.parseStringToInt(orderMenu.get(Menu.XMAS_PASTA.getName()));
             }
             discount = countOfMain * WEEKEND_DEFAULT_DISCOUNT;
+        }
+        return -discount;
+    }
+    public int calculateDiscountAmountBySpecialStarEvent(){
+        List<Integer> specialDay = new ArrayList<>(List.of(3,10,17,24,25,31));
+        int discount = ZERO;
+        if(specialDay.contains(dateOfEvent)){
+            discount += SPECIAL_DEFAULT_DISCOUNT;
         }
         return -discount;
     }

@@ -4,10 +4,13 @@ import christmas.util.ParseUtil;
 
 import java.util.Map;
 
+import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_EVENT;
 import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_FREE_EVENT;
 
 public class TotalPriceBeforeEvent {
-    public TotalPriceBeforeEvent() {
+    private final int totalPrice;
+    public TotalPriceBeforeEvent(Map<String, String> orderMenu) {
+        this.totalPrice = calculatePrice(orderMenu);
     }
 
     public int calculatePrice(Map<String, String> orderMenu) {
@@ -22,6 +25,10 @@ public class TotalPriceBeforeEvent {
 
     public boolean isTargetOfFreeEvent(int totalPriceBeforeDiscount) {
         return totalPriceBeforeDiscount > MINIMUM_AMOUNT_OF_FREE_EVENT;
+    }
+
+    public boolean isAvailableForDiscountEvent() {
+        return totalPrice >= MINIMUM_AMOUNT_OF_EVENT;
     }
 
 }

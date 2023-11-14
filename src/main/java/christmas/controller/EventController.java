@@ -20,13 +20,13 @@ public class EventController {
     int dateOfEvent;
     Map<String, String> orderMenu;
     int totalPrice;
-    boolean isFree;
+    boolean isTargetForFreebie;
     int totalDiscountAmount = ZERO;
+    int totalPriceToPay;
 
     public EventController() {
         dateValidator = new DateValidator();
         menuValidator = new MenuValidator();
-        totalPriceBeforeEvent = new TotalPriceBeforeEvent();
     }
 
     public void start() {
@@ -37,12 +37,13 @@ public class EventController {
         OutputView.printMenu(orderMenu);
         this.totalPrice = getTotalPrice();
         OutputView.printTotalPriceBeforeDiscount(totalPrice);
-        this.isFree = totalPriceBeforeEvent.isTargetOfFreeEvent(totalPrice);
+        this.isTargetForFreebie = totalPriceBeforeEvent.isTargetOfFreeEvent(totalPrice);
         printMenuOfFree();
+        OutputView.printDiscountMessage();
         printDiscountEvent();
         OutputView.printTotalDiscountAmount(totalDiscountAmount);
-        totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice,totalDiscountAmount,orderMenu);
-        OutputView.printTotalPriceAfterEvent(totalPriceAfterEvent.calculateTotalPriceAfterEvent());
+        this.totalPriceToPay = getTotalPriceToPay();
+        OutputView.printTotalPriceAfterEvent(totalPriceToPay);
         badgeOfDecember = new BadgeOfDecember(totalDiscountAmount);
         OutputView.printBadgeOfDecember(badgeOfDecember.getBadgeByTotalDiscountAmount());
     }
@@ -62,45 +63,54 @@ public class EventController {
     }
 
     public int getTotalPrice() {
+        totalPriceBeforeEvent = new TotalPriceBeforeEvent(orderMenu);
         return totalPriceBeforeEvent.calculatePrice(orderMenu);
+    }
+
+    public int getTotalPriceToPay() {
+        totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice, totalDiscountAmount, orderMenu);
+        return totalPriceAfterEvent.calculateTotalPriceAfterEvent();
     }
 
     public void printMenuOfFree() {
         OutputView.printFreebieMessage();
-        if (isFree) {
+        if (isTargetForFreebie) {
             OutputView.printMenuOfFree();
         }
-        if (!isFree) {
+        if (!isTargetForFreebie) {
             OutputView.printNothing();
         }
     }
 
-    public void printDiscountEvent() {
-        OutputView.printDiscountMessage();
+    public void printEachDiscountEvent() {
         discountEvent = new DiscountEvent(dateOfEvent, orderMenu);
-        if (totalPrice >= MINIMUM_AMOUNT_OF_EVENT) {
-            if (discountEvent.hasDiscountOfChristmas()) {
-                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
-                OutputView.printDiscountOfChristmas(discountEvent.calculateDiscountAmountByChristmasEvent());
-            }
-            if (discountEvent.hasDiscountOfWeek()) {
-                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
-                OutputView.printDiscountOfWeek(discountEvent.calculateDiscountAmountByWeekEvent());
-            }
-            if (discountEvent.hasDiscountOfWeekend()) {
-                this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
-                OutputView.printDiscountOfWeekend(discountEvent.calculateDiscountAmountByWeekendEvent());
-            }
-            if (discountEvent.hasDiscountOfSpecialDay()) {
-                this.totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
-                OutputView.printDiscountOfSpecialDay(discountEvent.calculateDiscountAmountBySpecialStarEvent());
-            }
-            if (isFree) {
-                this.totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;
-                OutputView.printDiscountByFreeEvent();
-            }
+        if (discountEvent.hasDiscountOfChristmas()) {
+            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
+            OutputView.printDiscountOfChristmas(discountEvent.calculateDiscountAmountByChristmasEvent());
         }
-        if (totalPrice < MINIMUM_AMOUNT_OF_EVENT) {
+        if (discountEvent.hasDiscountOfWeek()) {
+            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
+            OutputView.printDiscountOfWeek(discountEvent.calculateDiscountAmountByWeekEvent());
+        }
+        if (discountEvent.hasDiscountOfWeekend()) {
+            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
+            OutputView.printDiscountOfWeekend(discountEvent.calculateDiscountAmountByWeekendEvent());
+        }
+        if (discountEvent.hasDiscountOfSpecialDay()) {
+            this.totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
+            OutputView.printDiscountOfSpecialDay(discountEvent.calculateDiscountAmountBySpecialStarEvent());
+        }
+        if (isTargetForFreebie) {
+            this.totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;
+            OutputView.printDiscountByFreeEvent();
+        }
+    }
+
+    public void printDiscountEvent() {
+        if (totalPriceBeforeEvent.isAvailableForDiscountEvent()) {
+            printEachDiscountEvent();
+        }
+        if (!totalPriceBeforeEvent.isAvailableForDiscountEvent()) {
             OutputView.printNothing();
         }
     }

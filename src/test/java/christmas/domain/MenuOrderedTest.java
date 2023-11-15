@@ -11,16 +11,7 @@ import java.util.Map;
 import static christmas.util.ParseUtil.parseKeyValuePairs;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
-public class InputValidatorTest {
-    @DisplayName("날짜 입력값 검증 후 반환하기.")
-    @ValueSource(ints = {0, 32, 78})
-    @ParameterizedTest
-    void validateDate(int dates) {
-        assertThatThrownBy(() -> new DateOfVisit(dates))
-                .isInstanceOf(InvalidInputException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-    }
-
+public class MenuOrderedTest {
     @DisplayName("주문 메뉴와 개수 검증 후 반환하기.")
     @Test
     void validateMenu() {

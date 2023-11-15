@@ -16,13 +16,17 @@ public class ParseUtil {
 
     public static int parseStringToInt(String input) {
         try {
-            if (input == null) {
-                return 0;
-            }
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new InvalidInputException(INVALID_MENU);
         }
+    }
+
+    public static int parseValue(String value) {
+        if (value == null) {
+            return 0;
+        }
+        return Integer.parseInt(value);
     }
 
     public static <T> T retryOnException(Supplier<T> supplier) {

@@ -1,13 +1,12 @@
 package christmas.domain;
 
-import christmas.util.ParseUtil;
-
 import java.util.Map;
 
 import static christmas.constant.PromotionConstant.*;
 
 public class TotalPriceBeforeEvent {
     private final int totalPrice;
+
     public TotalPriceBeforeEvent(Map<String, String> orderMenu) {
         this.totalPrice = calculatePrice(orderMenu);
     }
@@ -16,7 +15,7 @@ public class TotalPriceBeforeEvent {
         int sum = ZERO;
         for (String menuName : orderMenu.keySet()) {
             int eachMenuPrice = Menu.of(menuName).getPrice();
-            int countOfMenu = ParseUtil.parseStringToInt(orderMenu.get(menuName));
+            int countOfMenu = Integer.parseInt(orderMenu.get(menuName));
             sum += eachMenuPrice * countOfMenu;
         }
         return sum;

@@ -11,8 +11,8 @@ import static christmas.constant.PromotionConstant.*;
 
 public class PromotionEvent {
     Calendar calendar;
-    private int dateOfEvent;
-    private Map<String,String> orderMenu;
+    private final int dateOfEvent;
+    private final Map<String,String> orderMenu;
 
     public PromotionEvent(int dateOfEvent, Map<String,String> orderMenu) {
         calendar = Calendar.getInstance();
@@ -46,8 +46,8 @@ public class PromotionEvent {
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) >= Calendar.SUNDAY && calendar.get(Calendar.DAY_OF_WEEK) <= Calendar.THURSDAY) {
             if (orderMenu.containsKey(Menu.CAKE.getName()) || orderMenu.containsKey(Menu.ICE_CREAM.getName())) {
-                countOfDessert += ParseUtil.parseStringToInt(orderMenu.get(Menu.CAKE.getName()));
-                countOfDessert += ParseUtil.parseStringToInt(orderMenu.get(Menu.ICE_CREAM.getName()));
+                countOfDessert += ParseUtil.parseValue(orderMenu.get(Menu.CAKE.getName()));
+                countOfDessert += ParseUtil.parseValue(orderMenu.get(Menu.ICE_CREAM.getName()));
             }
             discount = countOfDessert * WEEK_DEFAULT_DISCOUNT;
         }
@@ -59,10 +59,10 @@ public class PromotionEvent {
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             if (orderMenu.containsKey(Menu.STEAK.getName()) || orderMenu.containsKey(Menu.RIB.getName()) || orderMenu.containsKey(Menu.SEAFOOD_PASTA.getName()) || orderMenu.containsKey(Menu.XMAS_PASTA.getName())) {
-                countOfMain += ParseUtil.parseStringToInt(orderMenu.get(Menu.STEAK.getName()));
-                countOfMain += ParseUtil.parseStringToInt(orderMenu.get(Menu.RIB.getName()));
-                countOfMain += ParseUtil.parseStringToInt(orderMenu.get(Menu.SEAFOOD_PASTA.getName()));
-                countOfMain += ParseUtil.parseStringToInt(orderMenu.get(Menu.XMAS_PASTA.getName()));
+                countOfMain += ParseUtil.parseValue(orderMenu.get(Menu.STEAK.getName()));
+                countOfMain += ParseUtil.parseValue(orderMenu.get(Menu.RIB.getName()));
+                countOfMain += ParseUtil.parseValue(orderMenu.get(Menu.SEAFOOD_PASTA.getName()));
+                countOfMain += ParseUtil.parseValue(orderMenu.get(Menu.XMAS_PASTA.getName()));
             }
             discount = countOfMain * WEEKEND_DEFAULT_DISCOUNT;
         }

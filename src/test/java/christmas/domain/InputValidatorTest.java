@@ -1,7 +1,6 @@
 package christmas.domain;
 
 import christmas.exception.InvalidInputException;
-import christmas.util.ParseUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,19 +13,19 @@ import static christmas.util.ParseUtil.parseKeyValuePairs;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 public class InputValidatorTest {
-    DateValidator dateValidator;
-    MenuValidator menuValidator;
+    DateOfVisit dateOfVisit;
+    MenuOrdered menuOrdered;
 
     @BeforeEach
     void setUp() {
-        dateValidator = new DateValidator();
-        menuValidator = new MenuValidator();
+        dateOfVisit = new DateOfVisit();
+        menuOrdered = new MenuOrdered();
     }
 
     @DisplayName("날짜 입력값 검증 후 반환하기.")
     @Test
     void returnDate() {
-        int dateNumber = dateValidator.validateDate(1);
+        int dateNumber = dateOfVisit.validateDate(1);
         assertThat(dateNumber).isEqualTo(1);
     }
 
@@ -34,7 +33,7 @@ public class InputValidatorTest {
     @ValueSource(ints = {0, 32, 78})
     @ParameterizedTest
     void validateRangeOfDate(int dates) {
-        assertThatThrownBy(() -> dateValidator.validateRangeOfDate(dates))
+        assertThatThrownBy(() -> dateOfVisit.validateRangeOfDate(dates))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
     }
@@ -42,14 +41,14 @@ public class InputValidatorTest {
     @DisplayName("주문 메뉴와 개수 검증 후 반환하기.")
     @Test
     void returnMenu() {
-        Map<String, String> orderMenu = menuValidator.validateMenu(Map.of("티본스테이크", "1", "샴페인", "1"));
+        Map<String, String> orderMenu = this.menuOrdered.validateMenu(Map.of("티본스테이크", "1", "샴페인", "1"));
         assertThat(orderMenu).isEqualTo(Map.of("티본스테이크", "1", "샴페인", "1"));
     }
 
     @DisplayName("고객이 메뉴판에 없는 메뉴를 입력하는 경우 예외처리")
     @Test
     void validateMenuExist() {
-        assertThatThrownBy(() -> menuValidator.validateMenuExist(Map.of("골드키위샐러드", "1","티본스테이끼","2","시저샐러드","1")))
+        assertThatThrownBy(() -> menuOrdered.validateMenuExist(Map.of("골드키위샐러드", "1","티본스테이끼","2","시저샐러드","1")))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -57,7 +56,7 @@ public class InputValidatorTest {
     @DisplayName("메뉴의 개수는 1 이상의 숫자만 입력되도록 해주세요. 이외의 입력값은 예외처리")
     @Test
     void validateNumberOfEachMenu() {
-        assertThatThrownBy(() -> menuValidator.validateNumberOfEachMenu(Map.of("시저샐러드", "0")))
+        assertThatThrownBy(() -> menuOrdered.validateNumberOfEachMenu(Map.of("시저샐러드", "0")))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -81,7 +80,7 @@ public class InputValidatorTest {
     @DisplayName("음료만 주문 시 예외처리")
     @Test
     void validateOnlyDrink() {
-        assertThatThrownBy(() -> menuValidator.validateOnlyDrink(Map.of("제로콜라", "1", "샴페인", "1")))
+        assertThatThrownBy(() -> menuOrdered.validateOnlyDrink(Map.of("제로콜라", "1", "샴페인", "1")))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }
@@ -89,7 +88,7 @@ public class InputValidatorTest {
     @DisplayName("메뉴를 한 번에 20개 초과로 시키면 예외처리")
     @Test
     void validateTotalNumberOfMenu() {
-        assertThatThrownBy(() -> menuValidator.validateTotalNumberOfMenu(Map.of("시저샐러드", "1", "티본스테이크", "7", "크리스마스파스타", "6", "제로콜라", "5", "아이스크림", "5")))
+        assertThatThrownBy(() -> menuOrdered.validateTotalNumberOfMenu(Map.of("시저샐러드", "1", "티본스테이크", "7", "크리스마스파스타", "6", "제로콜라", "5", "아이스크림", "5")))
                 .isInstanceOf(InvalidInputException.class)
                 .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
     }

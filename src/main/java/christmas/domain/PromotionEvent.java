@@ -7,14 +7,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.*;
+import static christmas.constant.PromotionConstant.*;
 
-public class DiscountEvent {
+public class PromotionEvent {
     Calendar calendar;
     private int dateOfEvent;
     private Map<String,String> orderMenu;
 
-    public DiscountEvent(int dateOfEvent, Map<String,String> orderMenu) {
+    public PromotionEvent(int dateOfEvent, Map<String,String> orderMenu) {
         calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_2023, Calendar.DECEMBER, dateOfEvent);
         this.dateOfEvent = dateOfEvent;

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
-
     @Test
     void 모든_타이틀_출력() {
         assertSimpleTest(() -> {

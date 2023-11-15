@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import static christmas.constant.MessageConstant.*;
+import static christmas.constant.PromotionConstant.*;
 
 public class BadgeOfDecember {
     private final int totalDiscountAmount;

@@ -4,8 +4,7 @@ import christmas.util.ParseUtil;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_EVENT;
-import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_FREE_EVENT;
+import static christmas.constant.PromotionConstant.*;
 
 public class TotalPriceBeforeEvent {
     private final int totalPrice;
@@ -14,7 +13,7 @@ public class TotalPriceBeforeEvent {
     }
 
     public int calculatePrice(Map<String, String> orderMenu) {
-        int sum = 0;
+        int sum = ZERO;
         for (String menuName : orderMenu.keySet()) {
             int eachMenuPrice = Menu.of(menuName).getPrice();
             int countOfMenu = ParseUtil.parseStringToInt(orderMenu.get(menuName));

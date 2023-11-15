@@ -9,34 +9,29 @@ import christmas.view.OutputView;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.*;
+import static christmas.constant.PromotionConstant.*;
 import static christmas.exception.ErrorMessage.INVALID_DATE;
-import static christmas.exception.ErrorMessage.INVALID_MENU;
 
-public class EventController {
-    DateValidator dateValidator;
-    MenuValidator menuValidator;
-    TotalPriceBeforeEvent totalPriceBeforeEvent;
-    DiscountEvent discountEvent;
-    TotalPriceAfterEvent totalPriceAfterEvent;
-    BadgeOfDecember badgeOfDecember;
-    int dateOfEvent;
-    Map<String, String> orderMenu;
-    int totalPrice;
-    boolean isTargetForFreebie;
-    int totalDiscountAmount = ZERO;
-    int totalPriceToPay;
+public class PromotionController {
+    private final DateOfVisit dateOfVisit;
+    private final MenuOrdered menuOrdered;
+    private TotalPriceBeforeEvent totalPriceBeforeEvent;
+    private int date;
+    private Map<String, String> orderMenu;
+    private int totalPrice;
+    private boolean isTargetForFreebie;
+    private int totalDiscountAmount = ZERO;
 
-    public EventController() {
-        dateValidator = new DateValidator();
-        menuValidator = new MenuValidator();
+    public PromotionController() {
+        dateOfVisit = new DateOfVisit();
+        menuOrdered = new MenuOrdered();
     }
 
     public void start() {
         OutputView.printStartMessage();
-        this.dateOfEvent = getDateOfEvent();
+        this.date = getDate();
         this.orderMenu = getOrderMenu();
-        OutputView.printPreviewMessage(dateOfEvent);
+        OutputView.printPreviewMessage(date);
         OutputView.printMenu(orderMenu);
         this.totalPrice = getTotalPrice();
         OutputView.printTotalPriceBeforeDiscount(totalPrice);
@@ -45,28 +40,27 @@ public class EventController {
         OutputView.printDiscountMessage();
         printDiscountEvent();
         OutputView.printTotalDiscountAmount(totalDiscountAmount);
-        this.totalPriceToPay = getTotalPriceToPay();
+        int totalPriceToPay = getTotalPriceToPay();
         OutputView.printTotalPriceAfterEvent(totalPriceToPay);
-        badgeOfDecember = new BadgeOfDecember(totalDiscountAmount);
+        BadgeOfDecember badgeOfDecember = new BadgeOfDecember(totalDiscountAmount);
         OutputView.printBadgeOfDecember(badgeOfDecember.getBadgeByTotalDiscountAmount());
     }
 
-    public int getDateOfEvent() {
+    public int getDate() {
         return ParseUtil.retryOnException(() -> {
-            int dateOfEvent;
             try{
-                dateOfEvent = Integer.parseInt(InputView.readDate());
+                int date = Integer.parseInt(InputView.readDate());
+                return dateOfVisit.validateDate(date);
             }catch (NumberFormatException e) {
                 throw new InvalidInputException(INVALID_DATE);
             }
-            return dateValidator.validateDate(dateOfEvent);
         });
     }
 
     public Map<String, String> getOrderMenu() {
         return ParseUtil.retryOnException(() -> {
             Map<String, String> orderMenu = ParseUtil.parseKeyValuePairs(InputView.readMenu());
-            return menuValidator.validateMenu(orderMenu);
+            return this.menuOrdered.validateMenu(orderMenu);
         });
     }
 
@@ -76,7 +70,7 @@ public class EventController {
     }
 
     public int getTotalPriceToPay() {
-        totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice, totalDiscountAmount, orderMenu);
+        TotalPriceAfterEvent totalPriceAfterEvent = new TotalPriceAfterEvent(totalPrice, totalDiscountAmount, orderMenu);
         return totalPriceAfterEvent.calculateTotalPriceAfterEvent();
     }
 
@@ -91,22 +85,22 @@ public class EventController {
     }
 
     public void printEachDiscountEvent() {
-        discountEvent = new DiscountEvent(dateOfEvent, orderMenu);
-        if (discountEvent.hasDiscountOfChristmas()) {
-            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByChristmasEvent();
-            OutputView.printDiscountOfChristmas(discountEvent.calculateDiscountAmountByChristmasEvent());
+        PromotionEvent promotionEvent = new PromotionEvent(date, orderMenu);
+        if (promotionEvent.hasDiscountOfChristmas()) {
+            this.totalDiscountAmount += promotionEvent.calculateDiscountAmountByChristmasEvent();
+            OutputView.printDiscountOfChristmas(promotionEvent.calculateDiscountAmountByChristmasEvent());
         }
-        if (discountEvent.hasDiscountOfWeek()) {
-            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekEvent();
-            OutputView.printDiscountOfWeek(discountEvent.calculateDiscountAmountByWeekEvent());
+        if (promotionEvent.hasDiscountOfWeek()) {
+            this.totalDiscountAmount += promotionEvent.calculateDiscountAmountByWeekEvent();
+            OutputView.printDiscountOfWeek(promotionEvent.calculateDiscountAmountByWeekEvent());
         }
-        if (discountEvent.hasDiscountOfWeekend()) {
-            this.totalDiscountAmount += discountEvent.calculateDiscountAmountByWeekendEvent();
-            OutputView.printDiscountOfWeekend(discountEvent.calculateDiscountAmountByWeekendEvent());
+        if (promotionEvent.hasDiscountOfWeekend()) {
+            this.totalDiscountAmount += promotionEvent.calculateDiscountAmountByWeekendEvent();
+            OutputView.printDiscountOfWeekend(promotionEvent.calculateDiscountAmountByWeekendEvent());
         }
-        if (discountEvent.hasDiscountOfSpecialDay()) {
-            this.totalDiscountAmount += discountEvent.calculateDiscountAmountBySpecialStarEvent();
-            OutputView.printDiscountOfSpecialDay(discountEvent.calculateDiscountAmountBySpecialStarEvent());
+        if (promotionEvent.hasDiscountOfSpecialDay()) {
+            this.totalDiscountAmount += promotionEvent.calculateDiscountAmountBySpecialStarEvent();
+            OutputView.printDiscountOfSpecialDay(promotionEvent.calculateDiscountAmountBySpecialStarEvent());
         }
         if (isTargetForFreebie) {
             this.totalDiscountAmount += DISCOUNT_AMOUNT_OF_FREE_EVENT;

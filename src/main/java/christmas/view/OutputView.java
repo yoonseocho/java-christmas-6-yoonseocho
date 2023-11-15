@@ -4,7 +4,7 @@ import christmas.util.ParseUtil;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.START_MESSAGE;
+import static christmas.constant.PromotionConstant.START_MESSAGE;
 
 public class OutputView {
     public static void printStartMessage() {

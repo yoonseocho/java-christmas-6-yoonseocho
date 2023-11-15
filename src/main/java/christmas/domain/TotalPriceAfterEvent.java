@@ -2,13 +2,13 @@ package christmas.domain;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.MINIMUM_AMOUNT_OF_EVENT;
-import static christmas.constant.MessageConstant.PRICE_OF_CHAMPAGNE;
+import static christmas.constant.PromotionConstant.MINIMUM_AMOUNT_OF_EVENT;
+import static christmas.constant.PromotionConstant.PRICE_OF_CHAMPAGNE;
 
 public class TotalPriceAfterEvent {
-    private int totalPrice;
-    private int totalDiscountAmount;
-    private Map<String, String> orderMenu;
+    private final int totalPrice;
+    private final int totalDiscountAmount;
+    private final Map<String, String> orderMenu;
 
     public TotalPriceAfterEvent(int totalPrice, int totalDiscountAmount, Map<String, String> orderMenu) {
         this.totalPrice = totalPrice;

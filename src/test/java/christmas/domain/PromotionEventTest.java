@@ -8,34 +8,34 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class DiscountEventTest {
-    DiscountEvent discountEvent;
+public class PromotionEventTest {
+    PromotionEvent promotionEvent;
     @BeforeEach
     void setUp(){
-        discountEvent = new DiscountEvent(17,Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1","초코케이크","2","아이스크림","2"));
+        promotionEvent = new PromotionEvent(17,Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1","초코케이크","2","아이스크림","2"));
     }
     @DisplayName("크리스마스 디데이 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByChristmasEvent(){
-        int discount = discountEvent.calculateDiscountAmountByChristmasEvent();
+        int discount = promotionEvent.calculateDiscountAmountByChristmasEvent();
         assertThat(discount).isEqualTo(-2600);
     }
     @DisplayName("평일 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByWeekEvent(){
-        int discount = discountEvent.calculateDiscountAmountByWeekEvent();
+        int discount = promotionEvent.calculateDiscountAmountByWeekEvent();
         assertThat(discount).isEqualTo(-8092);
     }
     @DisplayName("주말 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByWeekendEvent(){
-        int discount = discountEvent.calculateDiscountAmountByWeekendEvent();
+        int discount = promotionEvent.calculateDiscountAmountByWeekendEvent();
         assertThat(discount).isEqualTo(0);
     }
     @DisplayName("특별 할인금액 반환하기")
     @Test
     void calculateDiscountAmountBySpecialStarEvent(){
-        int discount = discountEvent.calculateDiscountAmountBySpecialStarEvent();
+        int discount = promotionEvent.calculateDiscountAmountBySpecialStarEvent();
         assertThat(discount).isEqualTo(-1000);
     }
 }

@@ -5,11 +5,11 @@ import christmas.util.ParseUtil;
 
 import java.util.Map;
 
-import static christmas.constant.MessageConstant.*;
+import static christmas.constant.PromotionConstant.*;
 import static christmas.exception.ErrorMessage.*;
 
-public class MenuValidator {
-    public MenuValidator() {
+public class MenuOrdered {
+    public MenuOrdered() {
     }
 
     public Map<String, String> validateMenu(Map<String, String> orderMenu) {

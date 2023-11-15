@@ -2,7 +2,7 @@ package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 
-import static christmas.constant.MessageConstant.*;
+import static christmas.constant.PromotionConstant.*;
 
 
 public class InputView {

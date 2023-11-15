@@ -9,19 +9,21 @@ import static christmas.constant.PromotionConstant.*;
 import static christmas.exception.ErrorMessage.*;
 
 public class MenuOrdered {
-    public MenuOrdered() {
-    }
+    private final Map<String, String> orderMenu;
 
-    public Map<String, String> validateMenu(Map<String, String> orderMenu) {
+    public MenuOrdered(Map<String, String> orderMenu) {
         validateMenuExist(orderMenu);
         validateNumberOfEachMenu(orderMenu);
         validateOnlyDrink(orderMenu);
         validateTotalNumberOfMenu(orderMenu);
+        this.orderMenu = orderMenu;
+    }
 
+    public Map<String, String> getMenu() {
         return orderMenu;
     }
 
-    public void validateMenuExist(Map<String, String> orderMenu) {
+    private void validateMenuExist(Map<String, String> orderMenu) {
         Menu[] menu = Menu.values();
         orderMenu.keySet().forEach(each -> {
             boolean isExist = false;
@@ -37,7 +39,7 @@ public class MenuOrdered {
         });
     }
 
-    public void validateNumberOfEachMenu(Map<String, String> orderMenu) {
+    private void validateNumberOfEachMenu(Map<String, String> orderMenu) {
         for (String number : orderMenu.values()) {
             if (ParseUtil.parseStringToInt(number) < LEAST_MENU_NUMBER) {
                 throw new InvalidInputException(INVALID_MENU);
@@ -45,7 +47,7 @@ public class MenuOrdered {
         }
     }
 
-    public void validateOnlyDrink(Map<String, String> orderMenu) {
+    private void validateOnlyDrink(Map<String, String> orderMenu) {
         Menu[] menu = Menu.values();
         boolean isOnlyDrink;
         isOnlyDrink = orderMenu.keySet().stream().allMatch(each -> {
@@ -61,12 +63,12 @@ public class MenuOrdered {
         }
     }
 
-    public void validateTotalNumberOfMenu(Map<String, String> orderMenu) {
-        int count = 0;
+    private void validateTotalNumberOfMenu(Map<String, String> orderMenu) {
+        int count = ZERO;
         for (String value : orderMenu.values()) {
             count += ParseUtil.parseStringToInt(value);
         }
-        if (count > 20) {
+        if (count > MAXIMUM_QUANTITY_OF_ORDER_AVAILABLE) {
             throw new InvalidInputException(INVALID_MENU);
         }
     }

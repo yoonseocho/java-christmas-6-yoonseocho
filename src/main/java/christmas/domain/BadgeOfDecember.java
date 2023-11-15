@@ -9,7 +9,7 @@ public class BadgeOfDecember {
         this.totalDiscountAmount = Math.abs(totalDiscountAmount);
     }
 
-    public String getBadgeByTotalDiscountAmount() {
+    public String getBadgeByTotalPromotionAmount() {
         if (totalDiscountAmount >= MINIMUM_AMOUNT_FOR_STAR_BADGE && totalDiscountAmount < MINIMUM_AMOUNT_FOR_TREE_BADGE) {
             return STAR_BADGE;
         }

@@ -6,13 +6,15 @@ import static christmas.constant.PromotionConstant.*;
 import static christmas.exception.ErrorMessage.INVALID_DATE;
 
 public class DateOfVisit {
-    public DateOfVisit() {
+    private final int date;
+    public DateOfVisit(int date) {
+        this.date = validateRangeOfDate(date);
     }
-    public int validateDate(int date) {
-        return validateRangeOfDate(date);
+    public int getDate() {
+        return date;
     }
 
-    public int validateRangeOfDate(int date) {
+    private int validateRangeOfDate(int date) {
         if (!(date >= FIRST_OF_DECEMBER && date <= LAST_OF_DECEMBER)) {
             throw new InvalidInputException(INVALID_DATE);
         }

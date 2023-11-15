@@ -6,6 +6,10 @@ import static christmas.constant.PromotionConstant.*;
 
 
 public class InputView {
+    private InputView() {
+
+    }
+
     public static String readDate() {
         System.out.println(INPUT_DATE_MESSAGE);
         return Console.readLine();

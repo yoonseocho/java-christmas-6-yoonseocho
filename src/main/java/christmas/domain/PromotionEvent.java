@@ -10,30 +10,22 @@ import java.util.Map;
 import static christmas.constant.PromotionConstant.*;
 
 public class PromotionEvent {
-    Calendar calendar;
-    private final int dateOfEvent;
-    private final Map<String,String> orderMenu;
-
-    public PromotionEvent(int dateOfEvent, Map<String,String> orderMenu) {
+    private final Calendar calendar;
+    public PromotionEvent(int dateOfEvent) {
         calendar = Calendar.getInstance();
         calendar.set(YEAR_OF_2023, Calendar.DECEMBER, dateOfEvent);
-        this.dateOfEvent = dateOfEvent;
-        this.orderMenu = orderMenu;
-    }
-    public boolean hasDiscountOfChristmas(){
-        return calculateDiscountAmountByChristmasEvent() != 0;
-    }
-    public boolean hasDiscountOfWeek(){
-        return calculateDiscountAmountByWeekEvent() != 0;
-    }
-    public boolean hasDiscountOfWeekend(){
-        return calculateDiscountAmountByWeekendEvent() != 0;
-    }
-    public boolean hasDiscountOfSpecialDay(){
-        return calculateDiscountAmountBySpecialStarEvent() != 0;
     }
 
-    public int calculateDiscountAmountByChristmasEvent() {
+    public int calculateTotalPromotionAmountExceptFreebie(int dateOfEvent, Map<String, String> orderMenu) {
+        int sum = ZERO;
+        sum += calculatePromotionAmountByChristmasEvent(dateOfEvent);
+        sum += calculatePromotionAmountByWeekEvent(orderMenu);
+        sum += calculatePromotionAmountByWeekendEvent(orderMenu);
+        sum += calculatePromotionAmountBySpecialEvent(dateOfEvent);
+        return sum;
+    }
+
+    public int calculatePromotionAmountByChristmasEvent(int dateOfEvent) {
         int discount = ZERO;
         if (dateOfEvent <= DATE_OF_XMAS) {
             discount += INCREASE_BY_100_WON * (dateOfEvent - 1) + XMAS_DEFAULT_DISCOUNT;
@@ -41,7 +33,7 @@ public class PromotionEvent {
         return -discount;
     }
 
-    public int calculateDiscountAmountByWeekEvent() {
+    public int calculatePromotionAmountByWeekEvent(Map<String, String> orderMenu) {
         int countOfDessert = ZERO;
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) >= Calendar.SUNDAY && calendar.get(Calendar.DAY_OF_WEEK) <= Calendar.THURSDAY) {
@@ -54,7 +46,7 @@ public class PromotionEvent {
         return -discount;
     }
 
-    public int calculateDiscountAmountByWeekendEvent() {
+    public int calculatePromotionAmountByWeekendEvent(Map<String, String> orderMenu) {
         int countOfMain = ZERO;
         int discount = ZERO;
         if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
@@ -68,10 +60,11 @@ public class PromotionEvent {
         }
         return -discount;
     }
-    public int calculateDiscountAmountBySpecialStarEvent(){
-        List<Integer> specialDay = new ArrayList<>(List.of(3,10,17,24,25,31));
+
+    public int calculatePromotionAmountBySpecialEvent(int dateOfEvent) {
+        List<Integer> specialDay = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
         int discount = ZERO;
-        if(specialDay.contains(dateOfEvent)){
+        if (specialDay.contains(dateOfEvent)) {
             discount += SPECIAL_DEFAULT_DISCOUNT;
         }
         return -discount;

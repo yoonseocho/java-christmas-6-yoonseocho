@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static christmas.constant.PromotionConstant.*;
 import static christmas.exception.ErrorMessage.*;
 
 public class ParseUtil {
@@ -24,7 +25,7 @@ public class ParseUtil {
 
     public static int parseValue(String value) {
         if (value == null) {
-            return 0;
+            return ZERO;
         }
         return Integer.parseInt(value);
     }
@@ -43,26 +44,24 @@ public class ParseUtil {
         if (input == null) {
             throw new InvalidInputException(INVALID_MENU);
         }
-        String[] pairs = input.split(",");
+        String[] pairs = input.split(PAIR_SEPARATOR);
 
         Map<String, String> result = new HashMap<>();
         for (String pair : pairs) {
-            if (!(pair.contains("-"))) {
+            if (!(pair.contains(KEY_VALUE_SEPARATOR))) {
                 throw new InvalidInputException(INVALID_MENU);
             }
-            String[] keyValue = pair.split("-");
-            if (keyValue.length != 2) {
+            String[] keyValue = pair.split(KEY_VALUE_SEPARATOR);
+            if (keyValue.length != KEY_VALUE_BOTH_EXIST) {
                 throw new InvalidInputException(INVALID_MENU);
             }
-            if (keyValue.length == 2) {
-                result.put(keyValue[0], keyValue[1]);
-            }
+            result.put(keyValue[KEY], keyValue[VALUE]);
         }
         return result;
     }
 
     public static String parsePrice(int price) {
-        if (price / 1000 != 0) {
+        if (price / PRICE_OF_1000_WON != ZERO) {
             DecimalFormat df = new DecimalFormat("###,###");
             return df.format(price);
         }

@@ -4,10 +4,10 @@ import java.util.Map;
 
 import static christmas.constant.PromotionConstant.*;
 
-public class TotalPriceBeforeEvent {
+public class TotalPriceBeforePromotion {
     private final int totalPrice;
 
-    public TotalPriceBeforeEvent(Map<String, String> orderMenu) {
+    public TotalPriceBeforePromotion(Map<String, String> orderMenu) {
         this.totalPrice = calculatePrice(orderMenu);
     }
 
@@ -20,13 +20,11 @@ public class TotalPriceBeforeEvent {
         }
         return sum;
     }
-
-    public boolean isTargetOfFreeEvent(int totalPriceBeforeDiscount) {
-        return totalPriceBeforeDiscount > MINIMUM_AMOUNT_OF_FREE_EVENT;
+    public boolean isTargetOfFreebie() {
+        return totalPrice > MINIMUM_AMOUNT_OF_FREE_EVENT;
     }
-
-    public boolean isAvailableForDiscountEvent() {
-        return totalPrice >= MINIMUM_AMOUNT_OF_EVENT;
+    public boolean isAvailableForPromotionEvent() {
+        return totalPrice >= MINIMUM_AMOUNT_OF_PROMOTION_EVENT;
     }
 
 }

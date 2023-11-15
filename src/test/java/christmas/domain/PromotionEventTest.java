@@ -12,30 +12,30 @@ public class PromotionEventTest {
     PromotionEvent promotionEvent;
     @BeforeEach
     void setUp(){
-        promotionEvent = new PromotionEvent(17,Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1","초코케이크","2","아이스크림","2"));
+        promotionEvent = new PromotionEvent(17);
     }
     @DisplayName("크리스마스 디데이 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByChristmasEvent(){
-        int discount = promotionEvent.calculateDiscountAmountByChristmasEvent();
+        int discount = promotionEvent.calculatePromotionAmountByChristmasEvent(17);
         assertThat(discount).isEqualTo(-2600);
     }
     @DisplayName("평일 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByWeekEvent(){
-        int discount = promotionEvent.calculateDiscountAmountByWeekEvent();
+        int discount = promotionEvent.calculatePromotionAmountByWeekEvent(Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1","초코케이크","2","아이스크림","2"));
         assertThat(discount).isEqualTo(-8092);
     }
     @DisplayName("주말 할인금액 반환하기")
     @Test
     void calculateDiscountAmountByWeekendEvent(){
-        int discount = promotionEvent.calculateDiscountAmountByWeekendEvent();
+        int discount = promotionEvent.calculatePromotionAmountByWeekendEvent(Map.of("타파스","1","티본스테이크","2","크리스마스파스타","1","바비큐립","1","초코케이크","2","아이스크림","2"));
         assertThat(discount).isEqualTo(0);
     }
     @DisplayName("특별 할인금액 반환하기")
     @Test
     void calculateDiscountAmountBySpecialStarEvent(){
-        int discount = promotionEvent.calculateDiscountAmountBySpecialStarEvent();
+        int discount = promotionEvent.calculatePromotionAmountBySpecialEvent(17);
         assertThat(discount).isEqualTo(-1000);
     }
 }
